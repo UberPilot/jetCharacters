@@ -1,33 +1,28 @@
 nodes:
   name:
-    format: "&7├&f→ &aName: &7%name%"
+    format: "&7\u251C&f\u2192 &aName: &7%name%"
+    limit: 30
   title:
-    format: "&7├&f→ &aTitle: &7%title%"
+    format: "&7\u251C&f\u2192 &aTitle: &7%title%"
   description:
-    format: "&7├&f→ &aDescription: &7&o%description%"
+    format: "&7\u251C&f\u2192 &aDescription: &7&o%description%"
   gender:
-    format: "&7├&f→ &aGender: &7&o%gender%"
+    format: "&7\u251C&f\u2192 &aGender: &7&o%gender%"
   age:
-    format: "&7├&f→ &aAge: &7&o%age%"
+    format: "&7\u251C&f\u2192 &aAge: &7&o%age%"
+    limit: 3
   race:
-    format: "&7├&f→ &aRace: &7&o%race%"
+    format: "&7\u251C&f\u2192 &aRace: &7&o%race%"
   class:
-    format: "&7├&f→ &aClass: &7&o%class%"
+    format: "&7\u251C&f\u2192 &aClass: &7&o%class%"
   hometown:
-    format: "&7├&f→ &aHometown: &7&o%hometown%"
+    format: "&7\u251C&f\u2192 &aHometown: &7&o%hometown%"
   nation:
-    format: "&7├&f→ &aNation: &7&o%nation%"
+    format: "&7\u251C&f\u2192 &aNation: &7&o%nation%"
 
 components:
   #Should the character card be shown on right click?
   rightclick: true
-  #Should offline character card searching be supported, by username?
-  #Be warned, this is very experimental and could get resource intensive with larger amounts of players,
-  #as it has to search through all of the data files.
-  #Please also note, that if multiple peoples' last username is the same,
-  #it will only send the card of the first one it finds.
-  #Defaults to false for this reason.
-  offline: false
   #Should nodes on the character card require individual permissions to set them?
   #If true, the set permission is jetCharacters.set
   #If false, the permissions are jetCharacters.set.name, jetCharacters.set.title, etc.

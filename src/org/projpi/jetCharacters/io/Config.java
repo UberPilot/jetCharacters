@@ -26,13 +26,13 @@ public class Config
     private LinkedHashMap<String, CardNode> nodes;
     //Components
     private boolean rightClick;
-    private boolean offline;
     private boolean splitPerms;
     private boolean longMessages;
     private int longMessageLength;
 
     public void load()
     {
+
         nodes = new LinkedHashMap<>();
         //Nodes
         for(String key : instance.getConfig().getConfigurationSection("nodes").getKeys(false))
@@ -42,7 +42,6 @@ public class Config
 
         //Components
         rightClick = instance.getConfig().getBoolean("components.rightclick");
-        offline = instance.getConfig().getBoolean("components.offline");
         splitPerms = instance.getConfig().getBoolean("components.split-perms");
         longMessages = instance.getConfig().getBoolean("components.long-messages");
         longMessageLength = instance.getConfig().getInt("components.long-message-length");
@@ -58,11 +57,6 @@ public class Config
         return rightClick;
     }
 
-    public boolean getOffline()
-    {
-        return offline;
-    }
-
     public boolean getSplitPerms()
     {
         return splitPerms;
@@ -70,7 +64,7 @@ public class Config
 
     public boolean getLongMessages()
     {
-        return splitPerms;
+        return longMessages;
     }
 
     public int getLongMessageLength()

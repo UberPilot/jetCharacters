@@ -88,7 +88,7 @@ public class JetCharacters extends JavaPlugin implements JetCharactersAPI
 
         getServer().getPluginManager().registerEvents(new EventHandler(this), this);
         if(config.getRightClick()) getServer().getPluginManager().registerEvents(new RightClickEvent(), this);
-        if(config.getRightClick()) getServer().getPluginManager().registerEvents(new ChatListener(this), this);
+        if(config.getLongMessages()) getServer().getPluginManager().registerEvents(new ChatListener(this), this);
 
         getCommand("jetcharacter").setExecutor(new Commander(this));
 

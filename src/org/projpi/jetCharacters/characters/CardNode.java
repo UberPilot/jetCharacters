@@ -11,12 +11,14 @@ public class CardNode
 {
     private String name;
     private String format;
+    private int limit;
 
     public CardNode(String name)
     {
         this.name = name;
         String path = "nodes." + name;
         format = JetCharacters.getInstance().getConfig().getString(path + ".format");
+        limit = JetCharacters.getInstance().getConfig().getInt(path + ".limit", 1000);
     }
 
     public String getFormat()
@@ -27,5 +29,10 @@ public class CardNode
     public String getName()
     {
         return name;
+    }
+
+    public int getLimit()
+    {
+        return limit;
     }
 }

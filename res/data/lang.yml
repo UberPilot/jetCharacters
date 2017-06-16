@@ -6,6 +6,7 @@ invalid-args: '&cImproper usage. The correct usage is %usage%'
 player-not-found: '&cPlayer not found.'
 no-permission: '&cYou don''t have permission to use that.'
 no-node: '&cYou can''t set that on your character.'
+over-limit: '&cCharacter %node% is limited to a length of %chars% characters.'
 card:
   header: "&7\u250C\u2524&r &2%username%'s Character Card &7\u251C\u2510"
   footer: "&7\u2514\u2524&r &2%username%'s Character Card &7\u251C\u2518"

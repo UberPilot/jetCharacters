@@ -1,20 +1,16 @@
 package org.projpi.jetCharacters.commands;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.projpi.jetCharacters.JetCharacters;
 import org.projpi.jetCharacters.characters.CardNode;
+import org.projpi.jetCharacters.commands.commands.*;
 import org.projpi.jetCharacters.io.Lang;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Description here.
@@ -24,9 +20,22 @@ public class Commander implements CommandExecutor
 {
     private JetCharacters instance;
 
+    private final SetSubCommand setSubCommand;
+    private final ShowSubCommand showSubCommand;
+    private final AdminClearSubCommand adminClearSubCommand;
+    private final AdminSetSubCommand adminSetSubCommand;
+    private final ClearSubCommand clearSubCommand;
+    private final InfoSubCommand infoSubCommand;
+
     public Commander(JetCharacters instance)
     {
         this.instance = instance;
+        this.setSubCommand = new SetSubCommand(instance);
+        this.showSubCommand = new ShowSubCommand(instance);
+        this.adminClearSubCommand = new AdminClearSubCommand(instance);
+        this.adminSetSubCommand = new AdminSetSubCommand(instance);
+        this.clearSubCommand = new ClearSubCommand(instance);
+        this.infoSubCommand = new InfoSubCommand(instance);
     }
 
     @Override
@@ -50,36 +59,7 @@ public class Commander implements CommandExecutor
                 {
                     simpleSubCommand(sender, args, "JetCharacters.set" +
                             ((instance.getConfiguration().getSplitPerms()) ? "." + args[1].toLowerCase() : ""),
-                            true, (sender1, args1) ->
-                    {
-                        if(instance.getNodes().containsKey(args1[0].toLowerCase()))
-                        {
-                            StringBuilder builder = new StringBuilder(args1[1]);
-                            if(args1.length > 2)
-                            {
-                                for (String arg : Arrays.copyOfRange(args1, 2, args1.length))
-                                {
-                                    builder.append(" ").append(arg);
-                                }
-                            }
-                            String value = builder.toString();
-                            if(value.equalsIgnoreCase("-clear"))
-                            {
-
-                            }
-                            else
-                            {
-                                instance.getCharacter((Player) sender1).set(args1[0].toLowerCase(), value);
-                                sender1.sendMessage(Lang.PLUGIN_PREFIX.toString() + Lang.SET_SUCCESS.toString()
-                                        .replaceAll("%node%", args1[0].toLowerCase())
-                                        .replaceAll("%value%", value));
-                            }
-                        }
-                        else
-                        {
-                            sender1.sendMessage(Lang.PLUGIN_PREFIX.toString() + Lang.NO_NODE.toString());
-                        }
-                    });
+                            true, setSubCommand);
                 }
             }
             //Checking/Viewing a card
@@ -88,7 +68,7 @@ public class Commander implements CommandExecutor
                     || args[0].equalsIgnoreCase("view")
                     || args[0].equalsIgnoreCase("v"))
             {
-                showCharacter(sender, args);
+                simpleSubCommand(sender, args, "JetCharacters.view", false, showSubCommand);
             }
             else if(args[0].equalsIgnoreCase("adminset")
                     || args[0].equalsIgnoreCase("as"))
@@ -100,33 +80,7 @@ public class Commander implements CommandExecutor
                 else
                 {
                     simpleSubCommand(sender, args, "JetCharacters.admin.set",
-                            true, (sender1, args1) ->
-                    {
-                        Player target = Bukkit.getPlayer(args1[0]);
-                        if(instance.getNodes().containsKey(args1[1].toLowerCase()))
-                        {
-                            StringBuilder builder = new StringBuilder(args1[2]);
-                            if(args1.length > 3)
-                            {
-                                for (String arg : Arrays.copyOfRange(args1, 3, args1.length))
-                                {
-                                    builder.append(" ").append(arg);
-                                }
-                            }
-                            String value = builder.toString();
-
-                                instance.getCharacter(target).set(args1[1].toLowerCase(), value);
-                                sender1.sendMessage(Lang.PLUGIN_PREFIX.toString() + Lang.ADMINSET_SUCCESS.toString()
-                                        .replaceAll("%player%", target.getName())
-                                        .replaceAll("%node%", args1[1].toLowerCase())
-                                        .replaceAll("%value%", value));
-
-                        }
-                        else
-                        {
-                            sender1.sendMessage(Lang.PLUGIN_PREFIX.toString() + Lang.NO_NODE.toString());
-                        }
-                    });
+                            true, adminSetSubCommand);
                 }
             }
             else if(args[0].equalsIgnoreCase("clear"))
@@ -137,19 +91,7 @@ public class Commander implements CommandExecutor
                 }
                 else
                 {
-                    simpleSubCommand(sender, args, "JetCharacters.clear", false, (sender1, args1) ->
-                    {
-                        if(instance.getNodes().containsKey(args1[0].toLowerCase()))
-                        {
-                        instance.getCharacter((Player) sender1).remove(args1[0].toLowerCase());
-                        sender1.sendMessage(Lang.PLUGIN_PREFIX.toString() + Lang.CLEAR_SUCCESS.toString()
-                                .replaceAll("%node%", args1[0].toLowerCase()));
-                        }
-                        else
-                        {
-                            sender1.sendMessage(Lang.PLUGIN_PREFIX.toString() + Lang.NO_NODE.toString());
-                        }
-                    });
+                    simpleSubCommand(sender, args, "JetCharacters.clear", false, clearSubCommand);
                 }
             }
             else if(args[0].equalsIgnoreCase("adminclear") || args[0].equalsIgnoreCase("ac"))
@@ -160,43 +102,13 @@ public class Commander implements CommandExecutor
                 }
                 else
                 {
-                    simpleSubCommand(sender, args, "JetCharacters.admin.clear", false, (sender1, args1) -> {
-
-                        Player target = Bukkit.getPlayer(args1[0]);
-                        if(instance.getNodes().containsKey(args1[1].toLowerCase()))
-                        {
-                            instance.getCharacter(target).remove(args1[1].toLowerCase());
-                            sender1.sendMessage(Lang.PLUGIN_PREFIX.toString() + Lang.ADMIN_CLEAR_SUCCESS.toString()
-                                    .replaceAll("%player%", target.getName())
-                                    .replaceAll("%node%", args1[1].toLowerCase()));
-                        }
-                        else
-                        {
-                            sender1.sendMessage(Lang.PLUGIN_PREFIX.toString() + Lang.NO_NODE.toString());
-                        }
-                    });
+                    simpleSubCommand(sender, args, "JetCharacters.admin.clear", false, adminClearSubCommand);
                 }
             }
             else if(args[0].equalsIgnoreCase("info")
                     || args[0].equalsIgnoreCase("i"))
             {
-                simpleSubCommand(sender, args, "JetCharacters.info", false, (sender1, args1) ->
-                {
-                    sender1.sendMessage(ChatColor.GOLD + "" + ChatColor.ITALIC + "jet" + ChatColor.DARK_GREEN + "Characters"
-                            + ChatColor.GRAY + "" + ChatColor.ITALIC + " by UberPilot");
-                    sender1.sendMessage(ChatColor.WHITE + "  \u2192 " + ChatColor.GRAY.toString() + ChatColor.ITALIC + "A jetSuite Plugin.");
-                    sender1.sendMessage(ChatColor.GRAY + "Version: " + ChatColor.GREEN + instance.getDescription().getVersion());
-                    sender1.sendMessage(ChatColor.GRAY + "Author(s): " + ChatColor.GREEN + instance.getDescription().getAuthors());
-                    sender1.sendMessage(ChatColor.GRAY + "Website: " + ChatColor.GREEN + instance.getDescription().getWebsite());
-                });
-            }
-            else if(args[0].equalsIgnoreCase("reload"))
-            {
-                if(sender.hasPermission("JetCharacters.admin.reload"))
-                {
-                    instance.onDisable();
-                    instance.onEnable();
-                }
+                simpleSubCommand(sender, args, "JetCharacters.info", false, infoSubCommand);
             }
             else
             {
@@ -289,71 +201,6 @@ public class Commander implements CommandExecutor
                         .replaceAll("%cmd%", Lang.BASE_COMMAND + " adminclear [player] [component]")
                         .replaceAll("%desc%", Lang.ADMINCLEAR_DESC.toString())
                         .replaceAll("%base%", Lang.BASE_COMMAND.toString()));
-            }
-        });
-    }
-
-    private void showCharacter(CommandSender sender, String[] args)
-    {
-        simpleSubCommand(sender, args, "JetCharacters.view", false, (sender1, args1) -> {
-            if(args1.length < 1)
-            {
-                if(sender1 instanceof Player)
-                {
-                    JetCharacters.getInstance().getCharacter((Player) sender).show(sender1);
-                }
-                else
-                {
-                    sender.sendMessage(Lang.CONSOLE_NO_CHARACTER.toString());
-                }
-            }
-            else
-            {
-                //If the player is online.
-                if(Bukkit.getPlayer(args1[0]) != null)
-                {
-                    JetCharacters.getInstance().getCharacter(Bukkit.getPlayer(args1[0])).show(sender1);
-                }
-                //Launches a thread to find an offline character.
-                else if(JetCharacters.getInstance().getConfiguration().getOffline() &&
-                        (!(sender instanceof Player) || !instance.getSearching().contains(((Player) sender1).getUniqueId())))
-                {
-                    if(sender instanceof Player)
-                    {
-                        instance.setSearching(((Player) sender).getUniqueId());
-                    }
-                    new Thread(() ->
-                    {
-                        try
-                        {
-                            for (File f : instance.getPlayerDataFolder().listFiles())
-                            {
-                                if(f.isFile())
-                                {
-                                    YamlConfiguration c = YamlConfiguration.loadConfiguration(f);
-                                    if(c.getString("last-username").equalsIgnoreCase(args[0]))
-                                    {
-                                        JetCharacters.getInstance()
-                                                .getOfflineCharacter(UUID.fromString(f.getName()
-                                                        .substring(0, f.getName().indexOf(".yml")))).show(sender1);
-                                        if(sender instanceof Player) instance.doneSearching(((Player) sender).getUniqueId());
-                                        return;
-                                    }
-                                }
-                            }
-                        }catch (NullPointerException npe)
-                        {
-                            instance.getLogger().severe("An error has occurred while searching for offline players. Please report this to the developer.");
-                            instance.getLogger().severe(npe.getLocalizedMessage());
-                        }
-                        sender1.sendMessage(Lang.PLUGIN_PREFIX.toString() + Lang.PLAYER_NOT_FOUND.toString());
-                        if(sender instanceof Player) instance.doneSearching(((Player) sender).getUniqueId());
-                    });
-                }
-                else
-                {
-                    sender1.sendMessage(Lang.PLUGIN_PREFIX.toString() + Lang.PLAYER_NOT_FOUND.toString());
-                }
             }
         });
     }

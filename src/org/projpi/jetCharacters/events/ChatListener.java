@@ -18,7 +18,7 @@ public class ChatListener implements Listener
         this.instance = instance;
     }
 
-    @org.bukkit.event.EventHandler(priority = EventPriority.HIGHEST)
+    @org.bukkit.event.EventHandler(priority = EventPriority.MONITOR)
     private void onChatEvent(AsyncPlayerChatEvent event)
     {
         if(event.getMessage().endsWith("&") && event.getPlayer().hasPermission("JetCharacters.longmessage"))

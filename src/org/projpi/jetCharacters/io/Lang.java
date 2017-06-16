@@ -33,7 +33,7 @@ public enum Lang {
     SET_SUCCESS("set-success", "Successfully set your %node% to %value%"),
     CLEAR_SUCCESS("clear-success", "Successfully cleared your %node%"),
     ADMIN_CLEAR_SUCCESS("clear-admin-success", "Successfully cleared %player%'s %node%"),
-    COMMAND_NOT_FOUND("command-not-found", "&cCommand not found.");
+    COMMAND_NOT_FOUND("command-not-found", "&cCommand not found."), OVER_LIMIT("over-limit", "&c%node% is limited to a length of %chars% characters.");
 
 
     private String path;
