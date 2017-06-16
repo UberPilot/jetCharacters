@@ -168,7 +168,7 @@ public class Commander implements CommandExecutor
     private void showUsage(CommandSender sender, String[] args, String usage)
     {
         simpleSubCommand(sender, args, "JetCharacters.help", false, (sender1, args1) ->
-                sender.sendMessage(Lang.PLUGIN_PREFIX.toString() + Lang.INVALID_ARGS.toString().replaceAll("%usage%", usage)));
+                sender.sendMessage(Lang.PLUGIN_PREFIX.toString() + Lang.BASE_COMMAND.toString() + " " + Lang.INVALID_ARGS.toString().replaceAll("%usage%", usage)));
     }
 
     private void showHelp(CommandSender sender, String[] args)

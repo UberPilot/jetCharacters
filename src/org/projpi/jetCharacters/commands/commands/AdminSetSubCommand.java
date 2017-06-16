@@ -30,7 +30,7 @@ public class AdminSetSubCommand implements SimpleCommandFunction
         Player target = Bukkit.getPlayer(args[0]);
         if(instance.getNodes().containsKey(args[1].toLowerCase()))
         {
-            CardNode node = instance.getNodes().get(args[0].toLowerCase());
+            CardNode node = instance.getNodes().get(args[1].toLowerCase());
             StringBuilder builder = new StringBuilder(args[2]);
             if(args.length > 3)
             {
@@ -40,7 +40,6 @@ public class AdminSetSubCommand implements SimpleCommandFunction
                 }
             }
             String value = builder.toString();
-
             if(value.length() <= node.getLimit())
             {
             instance.getCharacter(target).set(args[1].toLowerCase(), value);

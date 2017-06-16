@@ -4,10 +4,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.projpi.jetCharacters.JetCharacters;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -39,7 +36,7 @@ public class Load
                 lang.createNewFile();
                 InputStream defConfigStream = instance.getResource("lang.yml");
                 if (defConfigStream != null) {
-                    YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+                    YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream));
                     defConfig.save(lang);
                     Lang.setFile(defConfig);
                 }
