@@ -1,5 +1,6 @@
 package org.projpi.jetCharacters.events;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -18,8 +19,16 @@ public class RightClickEvent implements Listener
     {
         if(event.getRightClicked() instanceof Player)
         {
-            if(event.getPlayer().hasPermission("jetCharacters.view.click"))
-            JetCharacters.getInstance().getCharacter((Player) event.getRightClicked()).show(event.getPlayer());
+            if(Bukkit.getOnlinePlayers().contains(event.getRightClicked()))
+            {
+                if (event.getPlayer().hasPermission("jetCharacters.view.click"))
+                {
+                    if (JetCharacters.getInstance().getCharacters().containsKey(event.getRightClicked().getUniqueId()))
+                    {
+                        JetCharacters.getInstance().getCharacter((Player) event.getRightClicked()).show(event.getPlayer());
+                    }
+                }
+            }
         }
     }
 }
