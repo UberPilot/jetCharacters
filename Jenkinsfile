@@ -19,7 +19,8 @@ pipeline {
                 sh 'mvn -Dmaven.test.failure.ignore=true install'
             }
             post {
-                success {
+                always {
+                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                     junit 'target/surefire-reports/**/*.xml'
                 }
             }
