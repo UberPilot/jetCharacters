@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="jetCharacters.jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/jetCharacters_jar</output-path>
-    <root id="archive" name="jetCharacters.jar">
-      <element id="module-output" name="JetCharacters" />
-      <element id="dir-copy" path="$PROJECT_DIR$/res/data" />
-    </root>
-  </artifact>
-</component>

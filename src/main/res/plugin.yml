@@ -1,0 +1,37 @@
+name: JetCharacters
+version: ${project.version}
+description: ${project.description}
+author: UberPilot
+website: ${project.url}
+main: org.projpi.jetCharacters.JetCharacters
+softdepend: [PlaceholderAPI]
+commands:
+  jetcharacter:
+    description: Main command for JetCharacters.
+    aliases: [jchar, jc, char, c, jcharacter]
+permissions:
+  JetCharacters.user:
+    description: Allows base usage of the plugin.
+    default: true
+    children:
+      JetCharacters.view: true
+      JetCharacters.set: true
+      JetCharacters.clear: true
+  JetCharacters.longmessage:
+    description: Allows usage of the longmessage feature.
+    default: true
+  JetCharacters.view:
+    description: Allows viewing other players' character cards.
+    children:
+      JetCharacters.view.command: true
+      JetCharacters.view.click: true
+  JetCharacters.set:
+    description: Allows modifying one's own character card.
+  JetCharacters.clear:
+    description: Allows clearing one's own character card.
+  JetCharacters.admin.set:
+    description: Allows modifying others' character cards.
+    default: op
+  JetCharacters.admin.clear:
+    description: Allows clearing others' character cards.
+    default: op
