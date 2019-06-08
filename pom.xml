@@ -11,7 +11,7 @@
     <description>The better solution to character cards.</description>
 
     <build>
-        <defaultGoal>clean package install</defaultGoal>
+        <defaultGoal>clean test package install</defaultGoal>
         <finalName>${project.artifactId}-${project.version}</finalName>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <resources>
@@ -114,6 +114,12 @@
             <artifactId>bstats-bukkit</artifactId>
             <version>1.5</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

@@ -1,0 +1,14 @@
+package org.projpi.jetCharacters;
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
+
+public class TestJetCharacters
+{
+    @Test
+    public void implicit()
+    {
+        assertTrue("Compiled successfully", true);
+    }
+}
