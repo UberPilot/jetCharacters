@@ -12,15 +12,39 @@
 
     <build>
         <defaultGoal>clean package install</defaultGoal>
-        <finalName>JetCharacters-${project.version}</finalName>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>src/main/res</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -35,6 +59,8 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
+                    <outputFile>${dir}\${project.artifactId}-${project.version}.jar</outputFile>
+                    <finalName>${project.artifactId}-${project.version}</finalName>
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
