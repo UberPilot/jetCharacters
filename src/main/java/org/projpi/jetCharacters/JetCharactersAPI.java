@@ -1,6 +1,7 @@
 package org.projpi.jetCharacters;
 
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.projpi.jetCharacters.characters.CardNode;
 import org.projpi.jetCharacters.characters.JetCharacter;
 
@@ -53,4 +54,7 @@ public interface JetCharactersAPI
      * @return The character of the player, or a blank character if one hasn't been made.
      */
     JetCharacter getCharacter(Player player);
+
+
+    PluginDescriptionFile getDescription();
 }

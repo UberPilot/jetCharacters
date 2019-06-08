@@ -79,51 +79,54 @@ public class Load
         ArrayList<InternalFile> files = new ArrayList<>();
         files.add(new InternalFile("config", "config.yml", new File(instance.getDataFolder(), "config.yml")));
         files.add(new InternalFile("language", "lang.yml", new File(instance.getDataFolder(), "lang.yml")));
-        if (!instance.getDataFolder().exists()) {
+        if (!instance.getDataFolder().exists())
+        {
             instance.getDataFolder().mkdirs();
-            FileOutputStream fos = null;
+        }
+        FileOutputStream fos = null;
 
-            for(InternalFile file : files)
+        for(InternalFile file : files)
+        {
+            File pointer = file.getFile();
+            if(!file.getFile().exists())
             {
-                File pointer = file.getFile();
-                if(!file.getFile().exists())
+                instance.getLogger().info("Could not find " + file.getFileName() + ", attempting to load default from jar.");
+                InputStream is = Load.class.getResourceAsStream("/" + file.getFileName());
+                try
                 {
-                    InputStream is = Load.class.getResourceAsStream("/" + file.getFileName());
+                    fos = new FileOutputStream(pointer);
+                    byte[] buf = new byte[256];
+                    int i;
+                    while ((i = is.read(buf)) != -1)
+                    {
+                        fos.write(buf, 0, i);
+                    }
+                } catch (Exception e)
+                {
+                    instance.getLogger().log(Level.SEVERE, "Failed to load default " + file.getName()
+                            + " from jarfile", e);
+                } finally
+                {
                     try
                     {
-                        fos = new FileOutputStream(pointer);
-                        byte[] buf = new byte[256];
-                        int i;
-                        while ((i = is.read(buf)) != -1)
+                        if (is != null)
                         {
-                            fos.write(buf, 0, i);
+                            is.close();
                         }
-                    } catch (Exception e)
-                    {
-                        instance.getServer().getLogger().log(Level.SEVERE, "Failed to load default " + file.getName()
-                                + " from jarfile", e);
-                    } finally
-                    {
-                        try
+                        if (fos != null)
                         {
-                            if (is != null)
-                            {
-                                is.close();
-                            }
-                            if (fos != null)
-                            {
-                                fos.close();
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            e.printStackTrace();
+                            fos.close();
                         }
                     }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
                 }
-
             }
+
         }
+
         return true;
     }
 }

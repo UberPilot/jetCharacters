@@ -4,6 +4,7 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.projpi.jetCharacters.characters.CardNode;
@@ -69,13 +70,12 @@ public class JetCharacters extends JavaPlugin implements JetCharactersAPI
 
     public void onEnable()
     {
-
         getPlayerDataFolder().mkdirs();
         cio = new CharacterIO(this);
-        config = new Config(this);
-        config.load();
         load = new Load(this);
         load.load();
+        config = new Config(this);
+        config.load();
         nodes = config.getNodes();
         characters = new LinkedHashMap<>();
         searching = new LinkedList<>();
