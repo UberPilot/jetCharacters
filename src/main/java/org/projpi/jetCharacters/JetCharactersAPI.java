@@ -41,14 +41,14 @@ public interface JetCharactersAPI
     Map<UUID, JetCharacter> getCharacters();
 
     /**
-     * Used to get the character of an offline player. <br/>More resource intensive than finding an online character.
+     * Used to get the character of an offline player. <br>More resource intensive than finding an online character.
      * @param uuid The UUID of the player to be retrieved.
      * @return The character of the player, or null if it's not found.
      */
     JetCharacter getOfflineCharacter(UUID uuid);
 
     /**
-     * Used to get the character of an online player. <br/>Note that any changes done to this character do not apply to the linked character.
+     * Used to get the character of an online player. <br>Note that any changes done to this character do not apply to the linked character.
      * @param player The player whose character should be retrieved.
      * @return The character of the player, or a blank character if one hasn't been made.
      */

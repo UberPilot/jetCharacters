@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 /**
- * Description here.
+ * Manages loading configuration files and extracting default configurations.
  *
  * @author UberPilot
  */
@@ -43,7 +43,11 @@ public class Load
             } catch(IOException e) {
                 e.printStackTrace(); // So they notice
                 instance.getLogger().severe("Couldn't create language file.");
-                instance.getLogger().severe("This is a fatal error. Now disabling");
+                instance.getLogger().severe("This is a fatal error. Now disabling.");
+                instance.getLogger().severe("Report this stack trace to the issue tracker");
+                instance.getLogger().severe("https://github.com/UberPilot/JetCharacters/issues");
+                instance.getLogger().severe("Or the discord for assistance");
+                instance.getLogger().severe("https://discord.gg/zUbNX9t");
                 return false;
             }
         }
@@ -59,8 +63,11 @@ public class Load
         try {
             conf.save(instance.getLangFile());
         } catch(IOException e) {
-            instance.getLogger().log(Level.WARNING, "Failed to save lang.yml.");
-            instance.getLogger().log(Level.WARNING, "Report this stack trace to UberPilot.");
+            instance.getLogger().severe("Failed to save lang.yml.");
+            instance.getLogger().severe("Report this stack trace to the issue tracker");
+            instance.getLogger().severe("https://github.com/UberPilot/JetCharacters/issues");
+            instance.getLogger().severe("Or the discord for assistance");
+            instance.getLogger().severe("https://discord.gg/zUbNX9t");
             e.printStackTrace();
         }
         return true;
@@ -93,7 +100,8 @@ public class Load
                         }
                     } catch (Exception e)
                     {
-                        instance.getServer().getLogger().log(Level.SEVERE, "Failed to load default " +file.getName()+ " from jarfile", e);
+                        instance.getServer().getLogger().log(Level.SEVERE, "Failed to load default " + file.getName()
+                                + " from jarfile", e);
                     } finally
                     {
                         try
@@ -109,7 +117,7 @@ public class Load
                         }
                         catch (Exception e)
                         {
-
+                            e.printStackTrace();
                         }
                     }
                 }
