@@ -83,7 +83,7 @@ public class JetCharacters extends JavaPlugin implements JetCharactersAPI
 
         if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
         {
-            new Placeholders(this).hook();
+            new Placeholders(this).register();
             getLogger().info("Placeholders hooked to PlaceholderAPI.");
         }
 
