@@ -4,7 +4,6 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.projpi.jetCharacters.characters.CardNode;
@@ -104,7 +103,7 @@ public class JetCharacters extends JavaPlugin implements JetCharactersAPI
     public void loadCharacter(Player player)
     {
         JetCharacter c = cio.load(player);
-        getLogger().info("Loaded Character with name " + c.get("name"));
+//        getLogger().info("Loaded Character with name " + c.get("name"));
         characters.put(player.getUniqueId(), c);
     }
 

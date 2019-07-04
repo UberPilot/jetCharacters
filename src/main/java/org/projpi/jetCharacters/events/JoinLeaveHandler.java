@@ -23,14 +23,14 @@ public class JoinLeaveHandler implements Listener
     @EventHandler
     private void onJoin(PlayerJoinEvent event)
     {
-        instance.getLogger().info("Got join event for " + event.getPlayer().getName());
+//        instance.getLogger().info("Got join event for " + event.getPlayer().getName());
         instance.loadCharacter(event.getPlayer());
     }
 
     @EventHandler
     private void onQuit(PlayerQuitEvent event)
     {
-        instance.getLogger().info("Got quit event for " + event.getPlayer().getName());
+//        instance.getLogger().info("Got quit event for " + event.getPlayer().getName());
         instance.saveAndRemoveCharacter(event.getPlayer());
     }
 }
