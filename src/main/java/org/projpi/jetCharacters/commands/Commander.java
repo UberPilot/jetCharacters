@@ -80,7 +80,7 @@ public class Commander implements CommandExecutor
                 else
                 {
                     simpleSubCommand(sender, args, "JetCharacters.admin.set",
-                            true, adminSetSubCommand);
+                            false, adminSetSubCommand);
                 }
             }
             else if(args[0].equalsIgnoreCase("clear"))
