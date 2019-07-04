@@ -3,6 +3,7 @@ package org.projpi.jetCharacters.papi;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 import org.projpi.jetCharacters.JetCharactersAPI;
+import org.projpi.jetCharacters.characters.JetCharacter;
 
 /**
  * Description here.
@@ -104,11 +105,24 @@ public class Placeholders extends PlaceholderExpansion
         }
         if(plugin.getNodes().containsKey(identifier))
         {
-            return plugin.getCharacter(player).get(identifier);
+            JetCharacter character = plugin.getCharacter(player);
+            if(character != null)
+            {
+                String data = character.get(identifier);
+                if(data == null)
+                {
+                    return "";
+                }
+                return data;
+            }
+            else
+            {
+                return "";
+            }
         }
         else
         {
-            return null;
+            return "";
         }
     }
 }
