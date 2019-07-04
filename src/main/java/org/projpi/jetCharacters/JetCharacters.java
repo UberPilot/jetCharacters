@@ -11,7 +11,7 @@ import org.projpi.jetCharacters.characters.CardNode;
 import org.projpi.jetCharacters.characters.JetCharacter;
 import org.projpi.jetCharacters.commands.Commander;
 import org.projpi.jetCharacters.events.ChatListener;
-import org.projpi.jetCharacters.events.EventHandler;
+import org.projpi.jetCharacters.events.JoinLeaveHandler;
 import org.projpi.jetCharacters.events.RightClickEvent;
 import org.projpi.jetCharacters.io.CharacterIO;
 import org.projpi.jetCharacters.io.Config;
@@ -87,7 +87,7 @@ public class JetCharacters extends JavaPlugin implements JetCharactersAPI
             getLogger().info("Placeholders hooked to PlaceholderAPI.");
         }
 
-        getServer().getPluginManager().registerEvents(new EventHandler(this), this);
+        getServer().getPluginManager().registerEvents(new JoinLeaveHandler(this), this);
         if(config.getRightClick()) getServer().getPluginManager().registerEvents(new RightClickEvent(), this);
         if(config.getLongMessages()) getServer().getPluginManager().registerEvents(new ChatListener(this), this);
 

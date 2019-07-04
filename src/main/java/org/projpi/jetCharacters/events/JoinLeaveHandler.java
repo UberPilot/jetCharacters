@@ -1,5 +1,6 @@
 package org.projpi.jetCharacters.events;
 
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -10,23 +11,23 @@ import org.projpi.jetCharacters.JetCharacters;
  *
  * @author UberPilot
  */
-public class EventHandler implements Listener
+public class JoinLeaveHandler implements Listener
 {
-    JetCharacters instance;
+    private final JetCharacters instance;
 
-    public EventHandler(JetCharacters instance)
+    public JoinLeaveHandler(JetCharacters instance)
     {
         this.instance = instance;
     }
 
-    @org.bukkit.event.EventHandler
+    @EventHandler
     private void onJoin(PlayerJoinEvent event)
     {
         instance.getLogger().info("Got join event for " + event.getPlayer().getName());
         instance.loadCharacter(event.getPlayer());
     }
 
-    @org.bukkit.event.EventHandler
+    @EventHandler
     private void onQuit(PlayerQuitEvent event)
     {
         instance.getLogger().info("Got quit event for " + event.getPlayer().getName());
