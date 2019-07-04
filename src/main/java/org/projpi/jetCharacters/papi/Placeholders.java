@@ -103,6 +103,19 @@ public class Placeholders extends PlaceholderExpansion
         {
             return "";
         }
+        if(identifier.equalsIgnoreCase("name"))
+        {
+            JetCharacter character = plugin.getCharacter(player);
+            if(character == null)
+            {
+                return player.getName();
+            }
+            if(character.get("name") == null || character.get("name").isEmpty())
+            {
+                return player.getName();
+            }
+            return character.get("name");
+        }
         if(plugin.getNodes().containsKey(identifier))
         {
             JetCharacter character = plugin.getCharacter(player);
