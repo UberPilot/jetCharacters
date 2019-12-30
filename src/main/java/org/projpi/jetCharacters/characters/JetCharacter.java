@@ -27,6 +27,7 @@ public class JetCharacter
 
     public JetCharacter(String username)
     {
+        this.username = username;
         this.nodes = new LinkedHashMap<>();
     }
 
