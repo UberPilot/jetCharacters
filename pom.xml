@@ -6,7 +6,7 @@
 
     <groupId>org.projpi</groupId>
     <artifactId>JetCharacters</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
     <inceptionYear>2017</inceptionYear>
     <description>The better solution to character cards.</description>
 

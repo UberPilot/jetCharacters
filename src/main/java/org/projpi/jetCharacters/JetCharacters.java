@@ -10,6 +10,7 @@ import org.projpi.jetCharacters.characters.CardNode;
 import org.projpi.jetCharacters.characters.JetCharacter;
 import org.projpi.jetCharacters.commands.Commander;
 import org.projpi.jetCharacters.events.ChatListener;
+import org.projpi.jetCharacters.events.CommandListener;
 import org.projpi.jetCharacters.events.JoinLeaveHandler;
 import org.projpi.jetCharacters.events.RightClickEvent;
 import org.projpi.jetCharacters.io.CharacterIO;
@@ -30,6 +31,7 @@ public class JetCharacters extends JavaPlugin implements JetCharactersAPI
     private Map<UUID, JetCharacter> characters;
     private List<UUID> searching;
     private Map<UUID, String> longMessage;
+    private Map<UUID, String> longCommand;
     private Config config;
     private Load load;
     private CharacterIO cio;
@@ -79,6 +81,7 @@ public class JetCharacters extends JavaPlugin implements JetCharactersAPI
         characters = new LinkedHashMap<>();
         searching = new LinkedList<>();
         longMessage = new LinkedHashMap<>();
+        longCommand = new LinkedHashMap<>();
 
         if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
         {
@@ -89,6 +92,7 @@ public class JetCharacters extends JavaPlugin implements JetCharactersAPI
         getServer().getPluginManager().registerEvents(new JoinLeaveHandler(this), this);
         if(config.getRightClick()) getServer().getPluginManager().registerEvents(new RightClickEvent(), this);
         if(config.getLongMessages()) getServer().getPluginManager().registerEvents(new ChatListener(this), this);
+        if(config.getLongMessages()) getServer().getPluginManager().registerEvents(new CommandListener(this), this);
 
         getCommand("jetcharacter").setExecutor(new Commander(this));
 
@@ -161,6 +165,26 @@ public class JetCharacters extends JavaPlugin implements JetCharactersAPI
     public void doneLongMessage(UUID uuid)
     {
         longMessage.remove(uuid);
+    }
+
+    public void setLongCommand(UUID uuid, String message)
+    {
+        longCommand.put(uuid, message);
+    }
+
+    public String getLongCommand(UUID uuid)
+    {
+        return longCommand.get(uuid);
+    }
+
+    public boolean longCommandContains(UUID uuid)
+    {
+        return longCommand.containsKey(uuid);
+    }
+
+    public void doneLongCommand(UUID uuid)
+    {
+        longCommand.remove(uuid);
     }
 
     //API Methods
